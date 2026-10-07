@@ -1,0 +1,129 @@
+import { Link } from 'react-router-dom';
+import { MapPin, ArrowRight, Phone } from 'lucide-react';
+import SEO from '@/components/SEO';
+import PageHero from '@/components/PageHero';
+import Reveal from '@/components/Reveal';
+import LocationCard from '@/components/LocationCard';
+import CTASection from '@/components/CTASection';
+import { BUSINESS, IMAGES, LOCATIONS } from '@/data/siteData';
+import { breadcrumbSchema } from '@/data/schema';
+
+export default function ServiceAreas() {
+  const schema = [
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Service Areas', path: '/service-areas' },
+    ]),
+  ];
+
+  return (
+    <>
+      <SEO
+        title="Service Areas | It's Lit Electrical ATL LLC — Atlanta Metro Electrician"
+        description="It's Lit Electrical ATL LLC serves Atlanta, GA and the surrounding metro area including Sandy Springs, Marietta, Roswell, Smyrna, Kennesaw, Decatur & more. Call 404-397-7984."
+        path="/service-areas"
+        image={IMAGES.atlantaSkyline}
+        imageAlt="Atlanta, Georgia metro area served by It's Lit Electrical ATL LLC"
+        schema={schema}
+      />
+
+      <PageHero
+        title="Electrical Service Areas in Metro Atlanta"
+        subtitle="Based in Atlanta, Georgia, we serve homeowners throughout the surrounding metro area. Find your city below to learn about electrical services in your area."
+        image={IMAGES.atlantaSkyline}
+        imageAlt="Aerial view of Atlanta, Georgia skyline at sunset"
+        breadcrumbs={[
+          { label: 'Home', path: '/' },
+          { label: 'Service Areas' },
+        ]}
+      />
+
+      {/* Locations Grid */}
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container-x">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
+              Where We Serve
+            </div>
+            <h2 className="section-title">Cities We Serve</h2>
+            <p className="section-subtitle mx-auto">
+              We serve homeowners in Atlanta and the following communities
+              throughout metro Atlanta. Each location page highlights a primary
+              service we offer in that area.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            {LOCATIONS.map((l) => (
+              <LocationCard key={l.slug} location={l} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="py-16 lg:py-24 bg-secondary-50">
+        <div className="container-x">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <Reveal>
+              <div>
+                <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-700 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
+                  Our Service Area
+                </div>
+                <h2 className="section-title">
+                  Proudly Serving Metro Atlanta
+                </h2>
+                <p className="text-secondary-600 mt-6 leading-relaxed text-lg">
+                  {BUSINESS.name} is based in Atlanta, Georgia, and we serve
+                  homeowners throughout the surrounding metro area. From Sandy
+                  Springs in the north to Powder Springs in the west, from
+                  Decatur in the east to Austell in the south, we are your local
+                  electrician.
+                </p>
+                <p className="text-secondary-600 mt-4 leading-relaxed">
+                  Not sure if we cover your area? Give us a call at{' '}
+                  <a
+                    href={`tel:${BUSINESS.phoneRaw}`}
+                    className="text-primary-600 font-bold hover:text-primary-700"
+                  >
+                    {BUSINESS.phone}
+                  </a>{' '}
+                  and we will let you know. We are always expanding our service
+                  area to serve more Atlanta homeowners.
+                </p>
+                <div className="mt-8">
+                  <a
+                    href={`tel:${BUSINESS.phoneRaw}`}
+                    className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-secondary-950 font-bold px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:shadow-primary-500/40 text-lg"
+                  >
+                    <Phone className="w-5 h-5" />
+                    Call {BUSINESS.phone}
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={100}>
+              <div className="rounded-2xl overflow-hidden shadow-2xl h-full min-h-[400px]">
+                <iframe
+                  src={BUSINESS.mapsEmbed}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: '400px' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="It's Lit Electrical ATL LLC Service Area Map"
+                />
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <CTASection
+        title="Don't See Your City? Call Us."
+        text="We may still serve your area. Call It's Lit Electrical ATL LLC at 404-397-7984 to find out if we can help with your electrical needs."
+        image={IMAGES.atlantaNight}
+      />
+    </>
+  );
+}
